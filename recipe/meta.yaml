@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/wireviz-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/wireviz-{{ version }}.tar.gz
   sha256: 0e25ad8c2e3a269a7dd4a7f45e4e8d304db7e0432b1843a620acfa6be70570e1
 
 build:
@@ -14,14 +14,14 @@ build:
     - wireviz=wireviz.wv_cli:wireviz
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - click
     - pyyaml
     - pillow
@@ -35,6 +35,7 @@ test:
     - wireviz --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/formatc1702/WireViz
